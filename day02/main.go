@@ -16,7 +16,8 @@ func main() {
 	fileStr := string(fileBytes)
 
 	ranges := strings.Split(fileStr, ",")
-	res := 0
+	firstRes := 0
+	secondRes := 0
 
 	for _, rangeVar := range ranges {
 		rangeArr := strings.Split(rangeVar, "-")
@@ -25,13 +26,16 @@ func main() {
 		for x := firstVal; x <= secondVal; x++ {
 			match := IsDoubleRepeat(strconv.Itoa(x))
 			if match {
-				fmt.Println(x)
-				res += x
+				firstRes += x
+			}
+			match = HasRepeatedPattern(strconv.Itoa(x))
+			if match {
+				secondRes += x
 			}
 		}
 	}
 
-	fmt.Printf("\nRESULT : %v\n", res)
+	fmt.Printf("\nPART 1 RESULT : %v\nPART 2 RESULT : %v\n", firstRes, secondRes)
 }
 
 func IsDoubleRepeat(s string) bool {
@@ -41,4 +45,28 @@ func IsDoubleRepeat(s string) bool {
 	}
 	half := n / 2
 	return s[:half] == s[half:]
+}
+
+func HasRepeatedPattern(s string) bool {
+	n := len(s)
+	if n < 2 {
+		return false
+	}
+	for size := 1; size <= n/2; size++ {
+		if n%size != 0 {
+			continue
+		}
+		block := s[:size]
+		ok := true
+		for i := size; i < n; i += size {
+			if s[i:i+size] != block {
+				ok = false
+				break
+			}
+		}
+		if ok {
+			return true
+		}
+	}
+	return false
 }
