@@ -22,15 +22,27 @@ func main() {
 	for _, rota := range rotations {
 		rotaValue, _ := strconv.Atoi(rota[1:])
 		if rota[0] == 'R' {
-			dial += rotaValue
+			for x := 0; x < rotaValue; x++ {
+				if dial == 99 {
+					dial = 0
+				} else {
+					dial++
+				}
+				if dial == 0 {
+					zeroCount++
+				}
+			}
 		} else {
-			dial -= rotaValue
-		}
-		if dial < 0 || dial > 99 {
-			dial = (dial%100 + 100) % 100
-		}
-		if dial == 0 {
-			zeroCount++
+			for x := 0; x < rotaValue; x++ {
+				if dial == 0 {
+					dial = 99
+				} else {
+					dial--
+				}
+				if dial == 0 {
+					zeroCount++
+				}
+			}
 		}
 		fmt.Println(dial)
 	}
