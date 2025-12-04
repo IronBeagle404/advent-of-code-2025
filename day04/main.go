@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	fileByes, err := os.ReadFile("inputExample.txt")
+	fileByes, err := os.ReadFile("input.txt")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -20,7 +20,7 @@ func main() {
 	for _, line := range lines {
 		matrix = append(matrix, []rune(line))
 	}
-	printMatrix(matrix)
+	//printMatrix(matrix)
 
 	matrixCopy := make([][]rune, len(matrix))
 	for i := range matrix {
@@ -61,7 +61,7 @@ func main() {
 				}
 
 				// lower line check
-				if x < len(matrix)-2 {
+				if x < len(matrix)-1 {
 					for i := y - 1; i <= y+1; i++ {
 						if (i < 0) || (i > len(matrix[0])-1) {
 							continue
